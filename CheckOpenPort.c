@@ -44,6 +44,7 @@ int main(int argc, char *argv[]){
 
     printf("\n\n===== Result =====\n\n");
     for(i = 0; i < open_port_count; i++) printf("%d Port is Opened.\n", port_list[i]);
+    
     free(port_list);
     return 0;
 }
