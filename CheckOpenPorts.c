@@ -48,16 +48,16 @@ int main(int argc, char *argv[]){
 
         switch(port_list[i]){
             case 0 ... 1023 :
-                puts("(Well-Known Port)\n");
-                break;
+            puts("(Well-Known Port)\n");
+            break;
 
             case 1024 ... 49151 :
-                puts("(Registered Port)\n");
-                break;
+            puts("(Registered Port)\n");
+            break;
 
             case 49152 ... 65535 :
-                puts("(Dynamic Port)\n");
-                break;
+            puts("(Dynamic Port)\n");
+            break;
         }
     }
 
