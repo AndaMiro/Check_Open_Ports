@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
         } else puts("\x1B[31mClosed\x1B[37m");
     }
 
-    puts("\n\n===== Result =====\n");
+    puts("\n\n===== Result =====\n\n");
     for(i = 0; i < open_port_count; i++){
         printf("%d Port is Opened. ", port_list[i]);
 
