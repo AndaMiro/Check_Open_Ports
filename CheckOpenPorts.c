@@ -24,10 +24,10 @@ int main(int argc, char *argv[]){
 
     if(min_port > max_port) error_handling("<MIN_PORT> must be less than or equal to <MAX_PORT>");
 
-    port_list = (int *)malloc(sizeof(int) * (max_port - min_port + 1));
-
     sock = socket(PF_INET, SOCK_STREAM, 0);
     if(sock == -1) error_handling("socket() error");
+    
+    port_list = (int *)malloc(sizeof(int) * (max_port - min_port + 1));
 
     for(i = min_port; i <= max_port; i++){
         memset(&serv_addr, 0, sizeof(serv_addr));
