@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
     struct sockaddr_in serv_addr;
 
     if(argc < 4){
-        printf("Usage : %s <IP> <MIN_PORT> <MAX_PORT>", argv[0]);
+        printf("Usage : %s <IP> <MIN_PORT> <MAX_PORT>\n", argv[0]);
         return 0;
     }
 
