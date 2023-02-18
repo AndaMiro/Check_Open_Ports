@@ -9,17 +9,17 @@
 void error_handling(char *msg);
 
 int main(int argc, char *argv[]){
-    int sock, min_port, max_port, i, open_port_count = 0;
+    int sock, min_port = 0, max_port = 65535, i, open_port_count = 0;
     int *port_list;
     struct sockaddr_in serv_addr;
 
-    if(argc < 4){
-        printf("Usage : %s <IP> <MIN_PORT> <MAX_PORT>\n", argv[0]);
+    if(argc < 2){
+        printf("Usage : %s <IP> <MIN_PORT (default = 0)> <MAX_PORT (default = 65535)>\n", argv[0]);
         return 0;
     }
 
-    min_port = atoi(argv[2]);
-    max_port = atoi(argv[3]);
+    if(argc >= 3) min_port = atoi(argv[2]);
+    if(argc >= 4) max_port = atoi(argv[3]);
 
 
     if(min_port > max_port) error_handling("<MIN_PORT> must be less than or equal to <MAX_PORT>");
@@ -38,13 +38,29 @@ int main(int argc, char *argv[]){
         if(!connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr))){
             port_list[open_port_count++] = i;
             close(sock);
-            printf("\x1B[32mOpened\x1B[37m\n");
-        } else printf("\x1B[31mClosed\x1B[37m\n");
+            puts("\x1B[32mOpened\x1B[37m");
+        } else puts("\x1B[31mClosed\x1B[37m");
     }
 
-    printf("\n\n===== Result =====\n\n");
-    for(i = 0; i < open_port_count; i++) printf("%d Port is Opened.\n", port_list[i]);
-    
+    puts("\n\n===== Result =====\n");
+    for(i = 0; i < open_port_count; i++){
+        printf("%d Port is Opened. ", port_list[i]);
+
+        switch(port_list[i]){
+            case 0 ... 1023 :
+                puts("(Well-Known Port)\n");
+                break;
+
+            case 1024 ... 49151 :
+                puts("(Registered Port)\n");
+                break;
+
+            case 49152 ... 65535 :
+                puts("(Dynamic Port)\n");
+                break;
+        }
+    }
+
     free(port_list);
     return 0;
 }
